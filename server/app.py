@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask,jsonify
 from flask_cors import CORS
 from src.Routes.disease_routes import disease_routes
 from src.Routes.crop_suggestion import crop_prediction_routes
@@ -27,6 +27,10 @@ CORS(
     resources={r"/*": {"origins": frontend_url}},
     supports_credentials=True,
 )
+
+@app.route("/test")
+def test():
+    return jsonify("it is working")
 
 if __name__ == "__main__":
     app.run(debug=True)
