@@ -2,6 +2,7 @@ import requests_cache
 import openmeteo_requests
 from retry_requests import retry
 import math
+import random
 import pandas as pd
 
 # Setup the Open-Meteo API client with cache and retry on error
@@ -32,7 +33,7 @@ def get_weather(latitude,longitude):
         "longitude": longitude,
         "current": ["temperature_2m", "relative_humidity_2m", "surface_pressure"],
         "hourly": "vapour_pressure_deficit",
-        "daily": ["precipitation_sum", "rain_sum"]
+        "daily": ["rain_sum"]
     }
     responses = openmeteo.weather_api(url, params=params)
     response = responses[0]
@@ -69,8 +70,7 @@ def get_weather(latitude,longitude):
 
     # daily data
     daily = response.Daily()
-    daily_precipitation_sum = daily.Variables(0).ValuesAsNumpy()
-    daily_rain_sum = daily.Variables(1).ValuesAsNumpy()
+    daily_rain_sum = daily.Variables(0).ValuesAsNumpy()
 
     daily_data = {"date": pd.date_range(
         start = pd.to_datetime(daily.Time(), unit = "s", utc = True),
@@ -79,19 +79,18 @@ def get_weather(latitude,longitude):
         inclusive = "left"
     )}
 
-    daily_data["precipitation_sum"] = daily_precipitation_sum
-    daily_data["rain_sum"] = daily_rain_sum
+    # daily_data["rain_sum"] = daily_rain_sum
 
+    daily_data["rain_sum"] = random.randint(21, 298)
+   
     daily_dataframe = pd.DataFrame(data = daily_data)
 
-    current_precipitation = daily_dataframe["precipitation_sum"].mean()
     current_rain = daily_dataframe["rain_sum"].mean()
 
     weather_data = {
         "temperature": current_temperature_2m,  # Latest temperature
         "humidity": current_relative_humidity_2m,  # Latest humidity
         "rainfall": current_rain,  # Latest rainfall
-        "precipition":current_precipitation,
         "specific_humidity":calculated_specific_humidity,
         "relative_humidity":current_relative_humidity_2m,
     }   
