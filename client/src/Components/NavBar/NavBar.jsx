@@ -21,29 +21,29 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto">
             <li className="nav-item animate-fade-in animate-delay-1">
-              <a className="nav-link" href="/">
+              <Link className="nav-link" to="/">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item animate-fade-in animate-delay-2">
-              <a className="nav-link" href="/market">
+              <Link className="nav-link" to="/market">
                 Supplements
-              </a>
+              </Link>
             </li>
             <li className="nav-item animate-fade-in animate-delay-3">
-              <a className="nav-link" href="/disease/predict">
+              <Link className="nav-link" to="/disease/predict">
                 AI Engine
-              </a>
+              </Link>
             </li>
             <li className="nav-item animate-fade-in animate-delay-4">
-              <a className="nav-link" href="/crop/predict">
+              <Link className="nav-link" to="/crop/predict">
                 Crop Suggestion
-              </a>
+              </Link>
             </li>
             <li className="nav-item animate-fade-in animate-delay-4">
-              <a className="nav-link" href="/yield/predict">
+              <Link className="nav-link" to="/yield/predict">
                 Yield Prediction
-              </a>
+              </Link>
             </li>
           </ul>
           <ul className="navbar-nav ml-auto">

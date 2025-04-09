@@ -4,27 +4,19 @@ from retry_requests import retry
 from math import exp
 from random import randint
 from pandas import date_range, to_datetime, Timedelta, DataFrame
+from functools import lru_cache
 
-# Setup the Open-Meteo API client with cache and retry on error
-cache_session = CachedSession(".cache", expire_after=3600)
-retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
-openmeteo = Client(session=retry_session)
+@lru_cache()
+def get_openmeteo_client():
+    cache_session = CachedSession(".cache", expire_after=3600)
+    retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
+    return Client(session=retry_session)
 
 def calculate_specific_humidity(temp_c, vpd_kpa, surface_pressure_kpa):
-    # Calculate Saturation Vapor Pressure (es) using the Tetens equation
     es_kpa = 0.611 * exp((17.27 * temp_c) / (temp_c + 237.3))
-
-    # Calculate Actual Vapor Pressure (e)
-    e_kpa = es_kpa - vpd_kpa  # e = es - VPD
-
-    # Specific humidity formula: q = (0.622 * e) / (P - (1 - 0.622) * e)
+    e_kpa = es_kpa - vpd_kpa
     q_kg_per_kg = (0.622 * e_kpa) / (surface_pressure_kpa - (1 - 0.622) * e_kpa)
-
-    # Convert kg/kg to g/kg (1 kg = 1000 g)
-    q_g_per_kg = q_kg_per_kg * 1000  
-
-    return q_g_per_kg  # Specific humidity in g/kg
-
+    return q_kg_per_kg * 1000
 
 def get_weather(latitude, longitude):
     url = "https://api.open-meteo.com/v1/forecast"
@@ -35,6 +27,8 @@ def get_weather(latitude, longitude):
         "hourly": "vapour_pressure_deficit",
         "daily": ["rain_sum"]
     }
+
+    openmeteo = get_openmeteo_client()
     responses = openmeteo.weather_api(url, params=params)
     response = responses[0]
 
@@ -46,8 +40,7 @@ def get_weather(latitude, longitude):
 
     # hourly data
     hourly = response.Hourly()
-    hourly_vapour_pressure_deficit = hourly.Variables(0).ValuesAsNumpy()
-
+    hourly_vpd = hourly.Variables(0).ValuesAsNumpy()
     hourly_data = {
         "date": date_range(
             start=to_datetime(hourly.Time(), unit="s", utc=True),
@@ -55,11 +48,9 @@ def get_weather(latitude, longitude):
             freq=Timedelta(seconds=hourly.Interval()),
             inclusive="left"
         ),
-        "vapour_pressure_deficit": hourly_vapour_pressure_deficit
+        "vapour_pressure_deficit": hourly_vpd
     }
-
-    hourly_dataframe = DataFrame(data=hourly_data)
-    vapour_pressure_deficit = hourly_dataframe["vapour_pressure_deficit"].mean()
+    vapour_pressure_deficit = DataFrame(data=hourly_data)["vapour_pressure_deficit"].mean()
 
     calculated_specific_humidity = calculate_specific_humidity(
         current_temperature_2m,
@@ -69,7 +60,6 @@ def get_weather(latitude, longitude):
 
     # daily data
     daily = response.Daily()
-    # Optionally replace real rain data with a random value
     daily_data = {
         "date": date_range(
             start=to_datetime(daily.Time(), unit="s", utc=True),
@@ -77,18 +67,14 @@ def get_weather(latitude, longitude):
             freq=Timedelta(seconds=daily.Interval()),
             inclusive="left"
         ),
-        "rain_sum": randint(21, 298)
+        "rain_sum": randint(21, 298)  # or use actual data: daily.Variables(0).ValuesAsNumpy()
     }
+    current_rain = DataFrame(data=daily_data)["rain_sum"].mean()
 
-    daily_dataframe = DataFrame(data=daily_data)
-    current_rain = daily_dataframe["rain_sum"].mean()
-
-    weather_data = {
+    return {
         "temperature": current_temperature_2m,
         "humidity": current_relative_humidity_2m,
         "rainfall": current_rain,
         "specific_humidity": calculated_specific_humidity,
         "relative_humidity": current_relative_humidity_2m
     }
-
-    return weather_data

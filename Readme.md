@@ -1,6 +1,8 @@
 # Project: Argoguide
 
-Argoguide is a farmer's assistance web application designed to provide several key features using machine learning and web technologies.
+## Abstract
+
+AgroGuide is an intelligent agricultural assistance platform that combines machine learning with web technologies to empower farmers with data-driven insights. The system provides four core functionalities: (1) plant disease detection using CNN image classification, (2) optimal crop recommendation based on soil and climate factors, (3) yield prediction using random forest regression, and (4) agricultural market information. Built with a React.js frontend and Flask backend, the platform integrates trained ML models (CNN for disease detection, random forest for crop/yield prediction) to deliver actionable recommendations through an intuitive user interface. AgroGuide aims to enhance farming productivity and decision-making by bridging the gap between agricultural expertise and technological innovation.
 
 ## Features
 
