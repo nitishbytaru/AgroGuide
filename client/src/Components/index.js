@@ -1,0 +1,9 @@
+export { default as Contact } from "./Contact/Contact.jsx";
+export { default as Home } from "./Home/Home.jsx";
+export { default as Market } from "./Market/Market.jsx";
+export { default as DiseaseInput } from "./DiseaseDetection/DiseaseInput.jsx";
+export { default as DiseaseOutput } from "./DiseaseDetection/DiseaseOutput.jsx";
+export { default as CropInput } from "./CropSuggestion/CropInput.jsx";
+export { default as CropOutput } from "./CropSuggestion/CropOutput.jsx";
+export { default as YieldInput } from "./YieldPrediction/YieldInput.jsx";
+export { default as YieldOutput } from "./YieldPrediction/YieldOutput.jsx";
