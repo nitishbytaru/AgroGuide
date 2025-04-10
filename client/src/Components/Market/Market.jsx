@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { suppliments } from "../../API/api";
 
 function Market() {
+  const { t } = useTranslation();
   const [supplements, setSupplements] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -64,11 +66,10 @@ function Market() {
               color: "var(--primary-color)",
             }}
           >
-            <b>Plant Supplements</b>
+            <b>{t("market.title")}</b>
           </h1>
           <p className="lead" style={{ marginTop: 15, marginBottom: 30 }}>
-            High-quality fertilizers and supplements for all your plant health
-            needs
+            {t("market.description")}
           </p>
         </div>
       </div>
@@ -96,9 +97,7 @@ function Market() {
                     padding: "8px 20px",
                   }}
                 >
-                  {filter === "all"
-                    ? "All Products"
-                    : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                  {t(`market.filters.${filter}`)}
                 </button>
               </li>
             ))}
@@ -119,7 +118,7 @@ function Market() {
             <input
               type="text"
               className="form-control"
-              placeholder="Search products..."
+              placeholder={t("market.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -169,12 +168,13 @@ function Market() {
                           : "fa-prescription-bottle-alt"
                       } me-2`}
                     ></i>
-                    {product.category.charAt(0).toUpperCase() +
-                      product.category.slice(1)}
+                    {t(`market.filters.${product.category}`)}
                   </span>
                 </h5>
                 <div style={{ minHeight: 60 }}>
-                  <h6>For {product.disease}</h6>
+                  <h6>
+                    {t("market.for")} {product.disease}
+                  </h6>
                   <p style={{ fontSize: 14 }}>{product.name}</p>
                 </div>
                 <Link
@@ -183,13 +183,14 @@ function Market() {
                   rel="noopener noreferrer"
                   className="btn-primary-gradient btn-sm mt-2"
                 >
-                  <i className="fas fa-shopping-cart me-2"></i> Buy Product
+                  <i className="fas fa-shopping-cart me-2"></i>{" "}
+                  {t("market.buyButton")}
                 </Link>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-center">No products found.</p>
+          <p className="text-center">{t("market.noProducts")}</p>
         )}
       </div>
     </div>

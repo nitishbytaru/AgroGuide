@@ -6,6 +6,8 @@ function DiseaseInput() {
   const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleFileChange = (event) => {
     if (event.target.files.length > 0) {
@@ -15,8 +17,12 @@ function DiseaseInput() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
     if (!selectedFile) {
-      console.log("Please select a file to upload.");
+      setError("Please select a file to upload.");
+      setIsLoading(false);
       return;
     }
 
@@ -25,10 +31,14 @@ function DiseaseInput() {
 
     try {
       const response = await diseaseDetection(formData);
-      console.log(response.data);
       navigate("/disease/result", { state: response.data });
     } catch (err) {
-      console.log(err);
+      setError(
+        err.response?.data?.message || "Something went wrong. Please try again."
+      );
+      console.error("Error:", err.response ? err.response.data : err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -111,7 +121,7 @@ function DiseaseInput() {
               </p>
 
               <form onSubmit={handleSubmit} className="text-center">
-                <div className="custom-file overflow-hidden mb-5">
+                <div className="custom-file overflow-hidden mb-4">
                   <input
                     type="file"
                     id="actual-btn"
@@ -126,14 +136,43 @@ function DiseaseInput() {
                     id="file-chosen"
                     style={{
                       color: selectedFile ? "var(--primary-color)" : "inherit",
+                      display: "block",
+                      marginTop: "8px",
                     }}
                   >
                     {selectedFile ? selectedFile.name : "No file chosen"}
                   </span>
                 </div>
 
-                <button type="submit" className="btn-primary-gradient">
-                  <i className="fas fa-search me-2"></i> Analyze Plant
+                {error && (
+                  <div
+                    className="alert alert-danger py-1 px-2"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    <i className="fas fa-exclamation-circle me-2"></i>
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="btn-primary-gradient animate-pulse"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-search me-2"></i> Analyze Plant
+                    </>
+                  )}
                 </button>
               </form>
 

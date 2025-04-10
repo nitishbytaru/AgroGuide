@@ -345,6 +345,26 @@ body {
   color: var(--text-muted);
 }
 
+/* Style for form helper text */
+.form-text {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+/* Better floating label appearance */
+.form-floating > label {
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
 .btn-submit {
   display: inline-flex;
   align-items: center;

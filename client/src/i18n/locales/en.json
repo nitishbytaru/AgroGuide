@@ -1,0 +1,123 @@
+{
+  "home": "Home",
+  "supplements": "Supplements",
+  "ai_engine": "AI Engine",
+  "crop_suggestion": "Crop Suggestion",
+  "yield_prediction": "Yield Prediction",
+  "contact_us": "Contact Us",
+  "hero": {
+    "title": "Agricultural AI Solutions",
+    "description": "Empowering farmers with cutting-edge technology for smarter farming decisions"
+  },
+  "services": {
+    "disease": {
+      "title": "Plant Disease Detection",
+      "desc": "This AI Engine helps detect diseases from fruits and vegetables like tomatoes and apples.",
+      "icon": "leaf"
+    },
+    "crop": {
+      "title": "Best Crop Suggestion",
+      "desc": "Suggests the best crops based on your region, soil and weather conditions.",
+      "icon": "seedling"
+    },
+    "yield": {
+      "title": "Yield Prediction",
+      "desc": "Predict your yield based on farming inputs, soil and location.",
+      "icon": "chart-line"
+    },
+    "startNow": "Start Now"
+  },
+  "features": {
+    "title": "Why Choose AgroGuide?",
+    "list": {
+      "1": {
+        "title": "AI-Powered Analysis",
+        "desc": "Advanced algorithms provide accurate predictions."
+      },
+      "2": {
+        "title": "Real-time Results",
+        "desc": "Instant feedback for smarter decisions."
+      },
+      "3": {
+        "title": "Sustainable Farming",
+        "desc": "Supports eco-friendly agricultural practices."
+      }
+    }
+  },
+  "youtube": {
+    "title": "Educational Resources",
+    "desc": "Watch these videos about modern farming techniques and best practices",
+    "1": "Plant Health Management",
+    "2": "Disease Detection Methods",
+    "3": "Organic Farming Practices"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "questions": [
+      {
+        "q": "How can I prevent plant diseases naturally?",
+        "a": "Use crop rotation, organic compost, and maintain proper spacing between plants to reduce the spread of diseases..."
+      },
+      {
+        "q": "What are common signs of plant diseases?",
+        "a": "Common signs include yellowing leaves, black spots, wilting, and unusual growths..."
+      },
+      {
+        "q": "What is the best way to control pests in farming?",
+        "a": "Integrated Pest Management (IPM), using natural predators, and applying neem oil can help control pests effectively..."
+      },
+      {
+        "q": "How can I improve soil fertility naturally?",
+        "a": "Adding organic matter such as compost, manure, and cover crops can improve soil fertility..."
+      },
+      {
+        "q": "What are the benefits of organic farming?",
+        "a": "Organic farming enhances soil health, reduces chemical exposure, promotes biodiversity, and produces healthier crops..."
+      },
+      {
+        "q": "How does climate change affect crop production?",
+        "a": "Climate change impacts rainfall patterns, temperature, and soil conditions, leading to unpredictable crop yields..."
+      },
+      {
+        "q": "What are the most common mistakes farmers make in crop production?",
+        "a": "Common mistakes include overuse of chemical fertilizers, improper irrigation, neglecting soil testing..."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to Transform Your Farming?",
+    "subtitle": "Join thousands of farmers who are already using AgroGuide to improve their yields and farming practices",
+    "contact": "Contact Us",
+    "register": "Register Now"
+  },
+  "footer": {
+    "about": {
+      "title": "AgroGuide",
+      "desc": "Empowering farmers with innovative solutions and technology."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "home": "Home",
+      "supplements": "Supplements",
+      "aiEngine": "AI Engine",
+      "cropPrediction": "Crop Prediction"
+    },
+    "connect": {
+      "title": "Connect With Us"
+    },
+    "copyright": "© 2025 AgroGuide. All rights reserved."
+  },
+  "market": {
+    "title": "Plant Supplements",
+    "description": "High-quality fertilizers and supplements for all your plant health needs",
+    "filters": {
+      "all": "All Products",
+      "fertilizer": "Fertilizer",
+      "supplements": "Supplements"
+    },
+    "searchPlaceholder": "Search products...",
+    "for": "For",
+    "buyButton": "Buy Product",
+    "noProducts": "No products found."
+  }
+}

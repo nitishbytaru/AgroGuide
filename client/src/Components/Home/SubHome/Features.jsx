@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Features() {
+  const { t } = useTranslation();
+
   return (
     <div className="row mb-5">
       <div className="col-12">
@@ -8,77 +11,20 @@ function Features() {
           <div className="card-body p-5">
             <div className="row align-items-center">
               <div className="col-lg-6">
-                <h2
-                  style={{
-                    color: "var(--primary-color)",
-                    fontWeight: 600,
-                    marginBottom: "20px",
-                  }}
-                >
-                  Why Choose AgroGuide?
+                <h2 style={{ color: "var(--primary-color)", fontWeight: 600, marginBottom: "20px" }}>
+                  {t("features.title")}
                 </h2>
-                <div className="feature-list">
-                  <div className="feature-item d-flex align-items-start mb-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="feature-item d-flex align-items-start mb-4">
                     <div className="feature-icon me-3">
-                      <i
-                        className="fas fa-check-circle"
-                        style={{
-                          color: "var(--primary-color)",
-                          fontSize: "24px",
-                        }}
-                      ></i>
+                      <i className="fas fa-check-circle" style={{ color: "var(--primary-color)", fontSize: "24px" }}></i>
                     </div>
                     <div>
-                      <h5 style={{ color: "var(--text-color)" }}>
-                        AI-Powered Analysis
-                      </h5>
-                      <p style={{ color: "var(--secondary-color)" }}>
-                        Our advanced machine learning algorithms provide
-                        accurate predictions and recommendations.
-                      </p>
+                      <h5 style={{ color: "var(--text-color)" }}>{t(`features.list.${i}.title`)}</h5>
+                      <p style={{ color: "var(--secondary-color)" }}>{t(`features.list.${i}.desc`)}</p>
                     </div>
                   </div>
-                  <div className="feature-item d-flex align-items-start mb-4">
-                    <div className="feature-icon me-3">
-                      <i
-                        className="fas fa-check-circle"
-                        style={{
-                          color: "var(--primary-color)",
-                          fontSize: "24px",
-                        }}
-                      ></i>
-                    </div>
-                    <div>
-                      <h5 style={{ color: "var(--text-color)" }}>
-                        Real-time Results
-                      </h5>
-                      <p style={{ color: "var(--secondary-color)" }}>
-                        Get instant feedback and suggestions to make timely
-                        decisions for your farm.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="feature-item d-flex align-items-start">
-                    <div className="feature-icon me-3">
-                      <i
-                        className="fas fa-check-circle"
-                        style={{
-                          color: "var(--primary-color)",
-                          fontSize: "24px",
-                        }}
-                      ></i>
-                    </div>
-                    <div>
-                      <h5 style={{ color: "var(--text-color)" }}>
-                        Sustainable Farming
-                      </h5>
-                      <p style={{ color: "var(--secondary-color)" }}>
-                        Our recommendations promote environmentally friendly and
-                        sustainable agricultural practices.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               <div className="col-lg-6 mt-4 mt-lg-0 text-center">
                 <img

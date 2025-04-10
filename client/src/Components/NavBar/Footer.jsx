@@ -1,32 +1,38 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="row">
           <div className="col-md-4">
-            <h5>AgroGuide</h5>
-            <p>Empowering farmers with innovative solutions and technology.</p>
+            <h5>{t("footer.about.title")}</h5>
+            <p>{t("footer.about.desc")}</p>
           </div>
           <div className="col-md-4">
-            <h5>Quick Links</h5>
+            <h5>{t("footer.quickLinks.title")}</h5>
             <ul className="footer-links">
               <li>
-                <a href="/">Home</a>
+                <a href="/">{t("footer.quickLinks.home")}</a>
               </li>
               <li>
-                <a href="/market">Supplements</a>
+                <a href="/market">{t("footer.quickLinks.supplements")}</a>
               </li>
               <li>
-                <a href="/disease/predict">AI Engine</a>
+                <a href="/disease/predict">{t("footer.quickLinks.aiEngine")}</a>
               </li>
               <li>
-                <a href="/crop/predict">Crop Prediction</a>
+                <a href="/crop/predict">
+                  {t("footer.quickLinks.cropPrediction")}
+                </a>
               </li>
             </ul>
           </div>
           <div className="col-md-4">
-            <h5>Connect With Us</h5>
+            <h5>{t("footer.connect.title")}</h5>
             <div className="social-icons">
               <a href="#">
                 <i className="fab fa-facebook-f"></i>
@@ -44,7 +50,7 @@ function Footer() {
           </div>
         </div>
         <div className="copyright">
-          <p>&copy; 2025 AgroGuide. All rights reserved.</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

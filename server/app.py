@@ -30,6 +30,7 @@ CORS(
     supports_credentials=True,
 )
 
+
 @app.route("/memory")
 def memory_usage():
     process = Process(getpid())
@@ -39,9 +40,16 @@ def memory_usage():
         "vms_memory_MB": mem_info.vms / 1024 / 1024,
     }
 
+
+@app.route("/", methods=["GET"])
+def home():
+    return "This website is working"
+
+
 @app.route("/test")
 def test():
     return jsonify("it is working")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

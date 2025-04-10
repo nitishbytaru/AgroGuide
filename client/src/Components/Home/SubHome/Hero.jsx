@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function HeroSection() {
+  const { t } = useTranslation();
+
   return (
     <div className="row mb-5 text-center">
       <div className="col-lg-10 mx-auto">
@@ -12,7 +15,7 @@ function HeroSection() {
             color: "var(--primary-color)",
           }}
         >
-          <b>Agricultural AI Solutions</b>
+          <b>{t("hero.title")}</b>
         </h1>
         <p
           className="lead animate-fade-in animate-delay-1"
@@ -22,8 +25,7 @@ function HeroSection() {
             fontSize: "20px",
           }}
         >
-          Empowering farmers with cutting-edge technology for smarter farming
-          decisions
+          {t("hero.description")}
         </p>
       </div>
     </div>

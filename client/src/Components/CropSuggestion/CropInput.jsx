@@ -1,24 +1,44 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cropSuggestions } from "../../API/api";
 
 function CropPrediction() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      const response = await cropSuggestions(data);
+    // Convert string values to numbers
+    const numericData = {
+      ...data,
+      N: parseFloat(data.N),
+      P: parseFloat(data.P),
+      K: parseFloat(data.K),
+      ph: parseFloat(data.ph),
+      latitude: parseFloat(data.latitude),
+      longitude: parseFloat(data.longitude),
+    };
 
+    try {
+      const response = await cropSuggestions(numericData);
       navigate("/crop/result", { state: response.data });
     } catch (error) {
+      setError(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
       console.error(
         "Error:",
         error.response ? error.response.data : error.message
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -58,18 +78,39 @@ function CropPrediction() {
               <form onSubmit={handleSubmit} className="crop-form">
                 <div className="row">
                   {[
-                    { label: "Nitrogen (N)", name: "N", min: 0, max: 200 },
-                    { label: "Phosphorus (P)", name: "P", min: 0, max: 150 },
-                    { label: "Potassium (K)", name: "K", min: 0, max: 200 },
+                    {
+                      label: "Nitrogen (N)",
+                      name: "N",
+                      min: 0,
+                      max: 200,
+                      placeholder: "this value must be from 0 to 200",
+                    },
+                    {
+                      label: "Phosphorus (P)",
+                      name: "P",
+                      min: 0,
+                      max: 150,
+                      placeholder: "ethis value must be from 0 to 150",
+                    },
+                    {
+                      label: "Potassium (K)",
+                      name: "K",
+                      min: 0,
+                      max: 200,
+                      placeholder: "this value must be from 0 to 200",
+                    },
                     {
                       label: "Soil pH Level",
                       name: "ph",
                       min: 3,
                       max: 9,
                       step: 0.01,
+                      placeholder: "this value must be from 3 to 9",
                     },
-                  ].map(({ label, name, min, max, step }) => (
-                    <div className="col-md-6 mb-4" key={name}>
+                  ].map(({ label, name, min, max, step, placeholder }) => (
+                    <div className="col-md-6 mb-3" key={name}>
+                      {" "}
+                      {/* Changed mb-4 to mb-3 */}
                       <div className="form-floating">
                         <input
                           type="number"
@@ -80,9 +121,20 @@ function CropPrediction() {
                           max={max}
                           step={step || 1}
                           required
-                          placeholder={label}
+                          placeholder=" " // Need a space here for floating labels to work
                         />
                         <label htmlFor={name}>{label}</label>
+                      </div>
+                      <div
+                        className="form-text"
+                        style={{
+                          color: "var(--text-muted)",
+                          fontSize: "0.75rem",
+                          marginTop: "0.25rem",
+                          paddingLeft: "0.5rem",
+                        }}
+                      >
+                        {placeholder}
                       </div>
                     </div>
                   ))}
@@ -105,6 +157,7 @@ function CropPrediction() {
                       min: -90,
                       max: 90,
                       step: 0.0001,
+                      placeholder: "this value must be from -90 to 90",
                     },
                     {
                       label: "Longitude",
@@ -112,24 +165,38 @@ function CropPrediction() {
                       min: -180,
                       max: 180,
                       step: 0.0001,
+                      placeholder: "this value must be from -180 to 180",
                     },
-                  ].map(({ label, name, min, max, step }) => (
-                    <div className="col-md-6 mb-4" key={name}>
-                      <div className="form-floating">
-                        <input
-                          type="number"
-                          className="form-control"
-                          id={name}
-                          name={name}
-                          min={min}
-                          max={max}
-                          step={step}
-                          required
-                          placeholder={label}
-                        />
-                        <label htmlFor={name}>{label}</label>
-                      </div>
+                  ].map(({ label, name, min, max, step, placeholder }) => (
+                    <div className="col-md-6 mb-3" key={name}>
+                    {" "}
+                    {/* Changed mb-4 to mb-3 */}
+                    <div className="form-floating">
+                      <input
+                        type="number"
+                        className="form-control"
+                        id={name}
+                        name={name}
+                        min={min}
+                        max={max}
+                        step={step || 1}
+                        required
+                        placeholder=" " // Need a space here for floating labels to work
+                      />
+                      <label htmlFor={name}>{label}</label>
                     </div>
+                    <div
+                      className="form-text"
+                      style={{
+                        color: "var(--text-muted)",
+                        fontSize: "0.75rem",
+                        marginTop: "0.25rem",
+                        paddingLeft: "0.5rem",
+                      }}
+                    >
+                      {placeholder}
+                    </div>
+                  </div>
                   ))}
                 </div>
 
@@ -137,8 +204,23 @@ function CropPrediction() {
                   <button
                     type="submit"
                     className="btn-primary-gradient animate-pulse"
+                    disabled={isLoading}
                   >
-                    <i className="fas fa-seedling me-2"></i> Get Crop Suggestion
+                    {isLoading ? (
+                      <>
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-seedling me-2"></i> Get Crop
+                        Suggestion
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
