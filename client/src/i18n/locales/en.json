@@ -119,5 +119,39 @@
     "for": "For",
     "buyButton": "Buy Product",
     "noProducts": "No products found."
+  },
+  "disease": {
+    "title": "Detect Disease",
+    "subtitle": "Upload your plant's leaf image to identify diseases and get treatment recommendations",
+    "why_detect_title": "Why is it necessary to detect plant disease?",
+    "why_detect_points": [
+      "It prevents spreading to healthy plants",
+      "Reduces economic losses for farmers",
+      "Minimizes the use of pesticides when caught early",
+      "Helps maintain food security and agricultural sustainability"
+    ],
+    "why_detect_desc": "Without proper identification of the disease and the disease-causing agent, control measures can be ineffective, wasting time and money while leading to further plant losses. Our AI-powered solution helps detect diseases even before symptoms appear clearly, providing timely interventions.",
+    "upload_title": "Upload Plant Image",
+    "upload_sub": "Simply upload your plant's leaf image and our AI will analyze it instantly",
+    "choose_file": "Choose File",
+    "no_file": "No file chosen",
+    "error_no_file": "Please select a file to upload.",
+    "error_general": "Something went wrong. Please try again.",
+    "processing": "Processing...",
+    "analyze": "Analyze Plant",
+    "supported_formats": "Supported formats: JPG, PNG, JPEG",
+    "result_healthy": "Your plant is healthy! Here's some useful information.",
+    "result_diseased": "We've detected an issue. Here's what you should know.",
+    "desc_title_healthy": "Tips to Grow Healthy Plants",
+    "desc_title_diseased": "Brief Description",
+    "prevent_title_healthy": "Benefits",
+    "prevent_title_diseased": "Preventive Measures",
+    "recommend_title_healthy": "Recommended Fertilizer",
+    "recommend_title_diseased": "Recommended Supplements",
+    "buy": "Buy Product",
+    "more_help_title": "Need More Help?",
+    "more_help_text": "Contact our plant experts for personalized advice or explore more resources",
+    "contact_us": "Contact Us",
+    "view_products": "View All Products"
   }
 }

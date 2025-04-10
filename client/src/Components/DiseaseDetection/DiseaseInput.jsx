@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { diseaseDetection } from "../../API/api";
+import { useTranslation } from "react-i18next";
 
 function DiseaseInput() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -54,7 +56,7 @@ function DiseaseInput() {
               color: "var(--primary-color)",
             }}
           >
-            <b>Detect Disease</b>
+            <b>{t("diseaseInput.title")}</b>
           </h1>
           <p
             className="lead animate-fade-in animate-delay-2"
@@ -73,7 +75,7 @@ function DiseaseInput() {
               <h4
                 style={{ color: "var(--primary-color)", marginBottom: "20px" }}
               >
-                Why is it necessary to detect plant disease?
+                {t("diseaseInput.whyTitle")}
               </h4>
               <p>
                 Plant diseases affect the growth and yield of crops
@@ -85,7 +87,7 @@ function DiseaseInput() {
                   marginBottom: "20px",
                 }}
               >
-                <li>It prevents spreading to healthy plants</li>
+                <li>{t("diseaseInput.benefit1")}</li>
                 <li>Reduces economic losses for farmers</li>
                 <li>Minimizes the use of pesticides when caught early</li>
                 <li>
@@ -130,7 +132,8 @@ function DiseaseInput() {
                     onChange={handleFileChange}
                   />
                   <label htmlFor="actual-btn" className="animate-pulse">
-                    <i className="fas fa-upload me-2"></i> Choose File
+                    <i className="fas fa-upload me-2"></i>{" "}
+                    {t("diseaseInput.chooseFile")}
                   </label>
                   <span
                     id="file-chosen"
