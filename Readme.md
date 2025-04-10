@@ -21,9 +21,39 @@ AgroGuide is an intelligent agricultural assistance platform that combines machi
   
 - **Frontend**: Built with React.js, providing a responsive and interactive user interface for farmers to interact with the features seamlessly.
 
-## Machine Learning Model
+## Machine Learning Models
 
-- **Random Forest Model**: Used for both yield prediction and crop suggestion functionalities. It leverages historical data and environmental parameters to make predictions.
+1. **Convolutional Neural Network (CNN)**
+   - Purpose: Plant disease detection from leaf images
+   - Implementation: PyTorch-based model (model_trained.pth)
+   - Location: server/trained_models/disease_detection/
+   - Architecture:
+     * 4 convolutional blocks (32, 64, 128, 256 filters)
+     * Each block: Conv2D → ReLU → BatchNorm → Conv2D → ReLU → BatchNorm → MaxPool
+     * Fully connected layers with dropout (0.4)
+     * Input shape: 3x224x224 (RGB images)
+     * Output: 39-class disease classification
+   - Classes: Detects 39 plant disease conditions across multiple crops (apples, grapes, potatoes, tomatoes, etc.)
+   - Training: Uses PlantVillage dataset with extensive augmentation
+   - File: server/Machine_Learning/CNN.py contains model definition
+
+2. **Random Forest Models**
+   - **Crop Recommendation**:
+     - Input: Soil parameters (N,P,K), temperature, humidity, pH, rainfall
+     - Output: Recommended crops with probabilities
+     - Location: server/trained_models/crop_predection/
+     - Files: crop_prediction_model.pkl, label_encoder.pkl, scaler.pkl
+   
+   - **Yield Prediction**:
+     - Input: Historical yield data, weather patterns, soil quality
+     - Output: Predicted yield in tons/hectare
+     - Location: server/trained_models/yield_prediction/
+     - File: crop_yield_model.pkl
+
+3. **Data Sources**
+   - Disease detection: PlantVillage dataset
+   - Crop recommendation: Kaggle agricultural dataset
+   - Yield prediction: Indian agricultural statistics
 
 ## Overview
 
