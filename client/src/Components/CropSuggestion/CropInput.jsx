@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { cropSuggestions } from "../../API/api";
 
-function CropPrediction() {
+function crop_prediction() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -15,7 +17,6 @@ function CropPrediction() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    // Convert string values to numbers
     const numericData = {
       ...data,
       N: parseFloat(data.N),
@@ -30,13 +31,7 @@ function CropPrediction() {
       const response = await cropSuggestions(numericData);
       navigate("/crop/result", { state: response.data });
     } catch (error) {
-      setError(
-        error.response?.data?.message || "An error occurred. Please try again."
-      );
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
-      );
+      setError(error.response?.data?.message || "Some error occured");
     } finally {
       setIsLoading(false);
     }
@@ -49,19 +44,18 @@ function CropPrediction() {
           <h2
             className="display-5 animate-fade-in"
             style={{
-              marginTop: "30px",
+              marginTop: 30,
               fontWeight: 600,
               color: "var(--primary-color)",
             }}
           >
-            <b>Crop Prediction</b>
+            <b>{t("crop_prediction.title")}</b>
           </h2>
           <p
             className="lead animate-fade-in animate-delay-1"
-            style={{ color: "var(--secondary-color)", marginTop: "10px" }}
+            style={{ color: "var(--secondary-color)", marginTop: 10 }}
           >
-            Enter your soil and location data to get personalized crop
-            recommendations
+            {t("crop_prediction.subtitle")}
           </p>
         </div>
       </div>
@@ -70,47 +64,43 @@ function CropPrediction() {
         <div className="col-lg-8">
           <div className="card-dark animate-fade-in animate-delay-2">
             <div className="card-body p-4">
-              <h4
-                style={{ color: "var(--primary-color)", marginBottom: "25px" }}
-              >
-                Enter Your Soil Parameters
+              <h4 style={{ color: "var(--primary-color)", marginBottom: 25 }}>
+                {t("crop_prediction.enter_soil_params")}
               </h4>
               <form onSubmit={handleSubmit} className="crop-form">
                 <div className="row">
                   {[
                     {
-                      label: "Nitrogen (N)",
+                      key: "nitrogen",
+                      placeholder: "n_hint",
                       name: "N",
                       min: 0,
                       max: 200,
-                      placeholder: "this value must be from 0 to 200",
                     },
                     {
-                      label: "Phosphorus (P)",
+                      key: "phosphorus",
+                      placeholder: "p_hint",
                       name: "P",
                       min: 0,
                       max: 150,
-                      placeholder: "ethis value must be from 0 to 150",
                     },
                     {
-                      label: "Potassium (K)",
+                      key: "potassium",
+                      placeholder: "k_hint",
                       name: "K",
                       min: 0,
                       max: 200,
-                      placeholder: "this value must be from 0 to 200",
                     },
                     {
-                      label: "Soil pH Level",
+                      key: "ph",
+                      placeholder: "ph_hint",
                       name: "ph",
                       min: 3,
                       max: 9,
                       step: 0.01,
-                      placeholder: "this value must be from 3 to 9",
                     },
-                  ].map(({ label, name, min, max, step, placeholder }) => (
+                  ].map(({ key, name, min, max, step, placeholder }) => (
                     <div className="col-md-6 mb-3" key={name}>
-                      {" "}
-                      {/* Changed mb-4 to mb-3 */}
                       <div className="form-floating">
                         <input
                           type="number"
@@ -121,9 +111,11 @@ function CropPrediction() {
                           max={max}
                           step={step || 1}
                           required
-                          placeholder=" " // Need a space here for floating labels to work
+                          placeholder=" "
                         />
-                        <label htmlFor={name}>{label}</label>
+                        <label htmlFor={name}>
+                          {t(`crop_prediction.${key}`)}
+                        </label>
                       </div>
                       <div
                         className="form-text"
@@ -134,7 +126,7 @@ function CropPrediction() {
                           paddingLeft: "0.5rem",
                         }}
                       >
-                        {placeholder}
+                        {t(`crop_prediction.${placeholder}`)}
                       </div>
                     </div>
                   ))}
@@ -143,61 +135,50 @@ function CropPrediction() {
                 <h4
                   style={{
                     color: "var(--primary-color)",
-                    marginBottom: "25px",
-                    marginTop: "20px",
+                    margin: "20px 0 25px",
                   }}
                 >
-                  Location Information
+                  {t("crop_prediction.location_info")}
                 </h4>
                 <div className="row">
                   {[
-                    {
-                      label: "Latitude",
-                      name: "latitude",
-                      min: -90,
-                      max: 90,
-                      step: 0.0001,
-                      placeholder: "this value must be from -90 to 90",
-                    },
-                    {
-                      label: "Longitude",
-                      name: "longitude",
-                      min: -180,
-                      max: 180,
-                      step: 0.0001,
-                      placeholder: "this value must be from -180 to 180",
-                    },
-                  ].map(({ label, name, min, max, step, placeholder }) => (
-                    <div className="col-md-6 mb-3" key={name}>
-                    {" "}
-                    {/* Changed mb-4 to mb-3 */}
-                    <div className="form-floating">
-                      <input
-                        type="number"
-                        className="form-control"
-                        id={name}
-                        name={name}
-                        min={min}
-                        max={max}
-                        step={step || 1}
-                        required
-                        placeholder=" " // Need a space here for floating labels to work
-                      />
-                      <label htmlFor={name}>{label}</label>
-                    </div>
-                    <div
-                      className="form-text"
-                      style={{
-                        color: "var(--text-muted)",
-                        fontSize: "0.75rem",
-                        marginTop: "0.25rem",
-                        paddingLeft: "0.5rem",
-                      }}
-                    >
-                      {placeholder}
-                    </div>
-                  </div>
-                  ))}
+                    { key: "latitude", placeholder: "lat_hint" },
+                    { key: "longitude", placeholder: "long_hint" },
+                  ].map(({ key, placeholder }) => {
+                    const min = key === "latitude" ? -90 : -180;
+                    const max = key === "latitude" ? 90 : 180;
+                    return (
+                      <div className="col-md-6 mb-3" key={key}>
+                        <div className="form-floating">
+                          <input
+                            type="number"
+                            className="form-control"
+                            id={key}
+                            name={key}
+                            min={min}
+                            max={max}
+                            step={0.0001}
+                            required
+                            placeholder=" "
+                          />
+                          <label htmlFor={key}>
+                            {t(`crop_prediction.${key}`)}
+                          </label>
+                        </div>
+                        <div
+                          className="form-text"
+                          style={{
+                            color: "var(--text-muted)",
+                            fontSize: "0.75rem",
+                            marginTop: "0.25rem",
+                            paddingLeft: "0.5rem",
+                          }}
+                        >
+                          {t(`crop_prediction.${placeholder}`)}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <div className="text-center mt-4">
@@ -213,12 +194,12 @@ function CropPrediction() {
                           role="status"
                           aria-hidden="true"
                         ></span>
-                        Processing...
+                        {t("crop_prediction.processing")}
                       </>
                     ) : (
                       <>
-                        <i className="fas fa-seedling me-2"></i> Get Crop
-                        Suggestion
+                        <i className="fas fa-seedling me-2"></i>
+                        {t("crop_prediction.submit")}
                       </>
                     )}
                   </button>
@@ -232,4 +213,4 @@ function CropPrediction() {
   );
 }
 
-export default CropPrediction;
+export default crop_prediction;

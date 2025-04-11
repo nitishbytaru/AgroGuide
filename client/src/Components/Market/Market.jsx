@@ -9,6 +9,7 @@ function Market() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +36,8 @@ function Market() {
         }
       } catch (error) {
         console.error("Error fetching supplements:", error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -132,7 +135,14 @@ function Market() {
       </div>
 
       <div className="row product-container">
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+          <div className="text-center my-5">
+            <div className="spinner-border text-success" role="status">
+              <span className="visually-hidden">{t("market.loading")}</span>
+            </div>
+            <p className="mt-3">{t("market.loading")}</p>
+          </div>
+        ) : filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => (
             <div
               key={index}

@@ -1,12 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 function Contact() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="contact-header animate-fade-in mb-2">
-        <h1>Contact Us</h1>
-        <p>
-          Have questions or suggestions? We're here to help. Reach out to us and
-          we'll respond as soon as possible.
-        </p>
+        <h1>{t("contact.title")}</h1>
+        <p>{t("contact.description")}</p>
       </div>
 
       <div className="contact-container">
@@ -18,8 +19,8 @@ function Contact() {
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
                 <div className="details">
-                  <h5>Our Location</h5>
-                  <p>123 Innovation Drive, Tech Valley, CA 94103</p>
+                  <h5>{t("contact.info.location.title")}</h5>
+                  <p>{t("contact.info.location.text")}</p>
                 </div>
               </div>
 
@@ -28,8 +29,8 @@ function Contact() {
                   <i className="fas fa-envelope"></i>
                 </div>
                 <div className="details">
-                  <h5>Email Us</h5>
-                  <p>support@agroguide.com</p>
+                  <h5>{t("contact.info.email.title")}</h5>
+                  <p>{t("contact.info.email.text")}</p>
                 </div>
               </div>
 
@@ -38,8 +39,8 @@ function Contact() {
                   <i className="fas fa-phone-alt"></i>
                 </div>
                 <div className="details">
-                  <h5>Call Us</h5>
-                  <p>+1 (555) 123-4567</p>
+                  <h5>{t("contact.info.phone.title")}</h5>
+                  <p>{t("contact.info.phone.text")}</p>
                 </div>
               </div>
 
@@ -48,8 +49,8 @@ function Contact() {
                   <i className="fas fa-clock"></i>
                 </div>
                 <div className="details">
-                  <h5>Working Hours</h5>
-                  <p>Monday - Friday: 9AM to 5PM</p>
+                  <h5>{t("contact.info.hours.title")}</h5>
+                  <p>{t("contact.info.hours.text")}</p>
                 </div>
               </div>
             </div>
@@ -57,16 +58,16 @@ function Contact() {
 
           <div className="col-lg-6 offset-lg-1">
             <div className="contact-form-container animate-fade-in-right">
-              <h3>Send us a message</h3>
+              <h3>{t("contact.form.title")}</h3>
               <form id="contactForm" className="contact-form">
                 <div className="form-floating mb-4">
                   <input
                     type="text"
                     className="form-control"
                     id="name"
-                    placeholder="Your Name"
+                    placeholder={t("contact.form.name.placeholder")}
                   />
-                  <label htmlFor="name">Your Name</label>
+                  <label htmlFor="name">{t("contact.form.name.label")}</label>
                 </div>
 
                 <div className="form-floating mb-4">
@@ -74,9 +75,9 @@ function Contact() {
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="Your Email"
+                    placeholder={t("contact.form.email.placeholder")}
                   />
-                  <label htmlFor="email">Your Email</label>
+                  <label htmlFor="email">{t("contact.form.email.label")}</label>
                 </div>
 
                 <div className="form-floating mb-4">
@@ -84,22 +85,26 @@ function Contact() {
                     type="text"
                     className="form-control"
                     id="subject"
-                    placeholder="Subject"
+                    placeholder={t("contact.form.subject.placeholder")}
                   />
-                  <label htmlFor="subject">Subject</label>
+                  <label htmlFor="subject">
+                    {t("contact.form.subject.label")}
+                  </label>
                 </div>
 
                 <div className="form-floating mb-4">
                   <textarea
                     className="form-control"
                     id="message"
-                    placeholder="Your Message"
+                    placeholder={t("contact.form.message.placeholder")}
                   ></textarea>
-                  <label htmlFor="message">Your Message</label>
+                  <label htmlFor="message">
+                    {t("contact.form.message.label")}
+                  </label>
                 </div>
 
                 <button type="submit" className="btn-submit animate-pulse">
-                  <span>Send Message</span>
+                  <span>{t("contact.form.submit")}</span>
                   <i className="fas fa-paper-plane"></i>
                 </button>
               </form>

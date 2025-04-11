@@ -23,7 +23,7 @@ function DiseaseInput() {
     setError(null);
 
     if (!selectedFile) {
-      setError("Please select a file to upload.");
+      setError(t("disease.error_no_file"));
       setIsLoading(false);
       return;
     }
@@ -35,10 +35,7 @@ function DiseaseInput() {
       const response = await diseaseDetection(formData);
       navigate("/disease/result", { state: response.data });
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Something went wrong. Please try again."
-      );
-      console.error("Error:", err.response ? err.response.data : err.message);
+      setError(err.response?.data?.message || t("disease.error_general"));
     } finally {
       setIsLoading(false);
     }
@@ -56,14 +53,13 @@ function DiseaseInput() {
               color: "var(--primary-color)",
             }}
           >
-            <b>{t("diseaseInput.title")}</b>
+            <b>{t("disease.title")}</b>
           </h1>
           <p
             className="lead animate-fade-in animate-delay-2"
             style={{ fontWeight: 500, marginTop: "15px" }}
           >
-            Upload your plant's leaf image to identify diseases and get
-            treatment recommendations
+            {t("disease.subtitle")}
           </p>
         </div>
       </div>
@@ -75,32 +71,21 @@ function DiseaseInput() {
               <h4
                 style={{ color: "var(--primary-color)", marginBottom: "20px" }}
               >
-                {t("diseaseInput.whyTitle")}
+                {t("disease.why_detect_title")}
               </h4>
-              <p>
-                Plant diseases affect the growth and yield of crops
-                significantly. Early detection is crucial because:
-              </p>
               <ul
                 style={{
                   color: "var(--secondary-color)",
                   marginBottom: "20px",
                 }}
               >
-                <li>{t("diseaseInput.benefit1")}</li>
-                <li>Reduces economic losses for farmers</li>
-                <li>Minimizes the use of pesticides when caught early</li>
-                <li>
-                  Helps maintain food security and agricultural sustainability
-                </li>
+                {t("disease.why_detect_points", { returnObjects: true }).map(
+                  (point, index) => (
+                    <li key={index}>{point}</li>
+                  )
+                )}
               </ul>
-              <p>
-                Without proper identification of the disease and the
-                disease-causing agent, control measures can be ineffective,
-                wasting time and money while leading to further plant losses.
-                Our AI-powered solution helps detect diseases even before
-                symptoms appear clearly, providing timely interventions.
-              </p>
+              <p>{t("disease.why_detect_desc")}</p>
             </div>
           </div>
         </div>
@@ -112,14 +97,13 @@ function DiseaseInput() {
                 className="text-center"
                 style={{ color: "var(--primary-color)", marginBottom: "30px" }}
               >
-                Upload Plant Image
+                {t("disease.upload_title")}
               </h4>
               <p
                 className="text-center mb-4"
                 style={{ color: "var(--secondary-color)" }}
               >
-                Simply upload your plant's leaf image and our AI will analyze it
-                instantly
+                {t("disease.upload_sub")}
               </p>
 
               <form onSubmit={handleSubmit} className="text-center">
@@ -133,7 +117,7 @@ function DiseaseInput() {
                   />
                   <label htmlFor="actual-btn" className="animate-pulse">
                     <i className="fas fa-upload me-2"></i>{" "}
-                    {t("diseaseInput.chooseFile")}
+                    {t("disease.choose_file")}
                   </label>
                   <span
                     id="file-chosen"
@@ -143,7 +127,7 @@ function DiseaseInput() {
                       marginTop: "8px",
                     }}
                   >
-                    {selectedFile ? selectedFile.name : "No file chosen"}
+                    {selectedFile ? selectedFile.name : t("disease.no_file")}
                   </span>
                 </div>
 
@@ -169,11 +153,12 @@ function DiseaseInput() {
                         role="status"
                         aria-hidden="true"
                       ></span>
-                      Processing...
+                      {t("disease.processing")}
                     </>
                   ) : (
                     <>
-                      <i className="fas fa-search me-2"></i> Analyze Plant
+                      <i className="fas fa-search me-2"></i>{" "}
+                      {t("disease.analyze")}
                     </>
                   )}
                 </button>
@@ -181,8 +166,8 @@ function DiseaseInput() {
 
               <div className="text-center mt-4">
                 <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>
-                  <i className="fas fa-info-circle me-2"></i> Supported formats:
-                  JPG, PNG, JPEG
+                  <i className="fas fa-info-circle me-2"></i>{" "}
+                  {t("disease.supported_formats")}
                 </p>
               </div>
             </div>

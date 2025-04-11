@@ -1,12 +1,32 @@
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function YieldOutput() {
   const location = useLocation();
+  const { t } = useTranslation();
   const data = location.state;
 
   if (!data) {
-    return <h2>No data received!</h2>;
+    return <h2>{t("yield_output.no_data")}</h2>;
   }
+
+  const results = [
+    {
+      label: t("yield_output.results.yield"),
+      value: data.predicted_yield,
+      icon: "fas fa-balance-scale",
+    },
+    {
+      label: t("yield_output.results.bags"),
+      value: data.bags_of_yield,
+      icon: "fas fa-shopping-bag",
+    },
+    {
+      label: t("yield_output.results.fed"),
+      value: data.people_fed,
+      icon: "fas fa-users",
+    },
+  ];
 
   return (
     <div className="container">
@@ -20,13 +40,13 @@ function YieldOutput() {
               color: "var(--primary-color)",
             }}
           >
-            <b>Yield Prediction Results</b>
+            <b>{t("yield_output.title")}</b>
           </h2>
           <p
             className="lead animate-fade-in animate-delay-1"
             style={{ color: "var(--secondary-color)", marginTop: 10 }}
           >
-            Based on your input, here is the estimated total crop yield
+            {t("yield_output.description")}
           </p>
         </div>
       </div>
@@ -36,23 +56,7 @@ function YieldOutput() {
           <div className="card-dark animate-fade-in animate-delay-2 animate-glow">
             <div className="card-body p-4">
               <div className="row text-center">
-                {[
-                  {
-                    label: "Total Yield (tons)",
-                    value: data.predicted_yield,
-                    icon: "fas fa-balance-scale",
-                  },
-                  {
-                    label: "Bags (50kg each)",
-                    value: data.bags_of_yield,
-                    icon: "fas fa-shopping-bag",
-                  },
-                  {
-                    label: "People Fed",
-                    value: data.people_fed,
-                    icon: "fas fa-users",
-                  },
-                ].map((item, index) => (
+                {results.map((item, index) => (
                   <div key={index} className="col-md-4 mb-4 mb-md-0">
                     <div
                       className="p-4 rounded"
@@ -87,10 +91,11 @@ function YieldOutput() {
 
       <div className="text-center">
         <a href="/yield/predict" className="btn-primary-gradient">
-          <i className="fas fa-redo me-2"></i> Predict Again
+          <i className="fas fa-redo me-2"></i> {t("yield_output.predict_again")}
         </a>
       </div>
     </div>
   );
 }
+
 export default YieldOutput;

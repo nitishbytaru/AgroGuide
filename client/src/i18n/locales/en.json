@@ -110,6 +110,7 @@
   "market": {
     "title": "Plant Supplements",
     "description": "High-quality fertilizers and supplements for all your plant health needs",
+    "loading": "Loading products...",
     "filters": {
       "all": "All Products",
       "fertilizer": "Fertilizer",
@@ -153,5 +154,124 @@
     "more_help_text": "Contact our plant experts for personalized advice or explore more resources",
     "contact_us": "Contact Us",
     "view_products": "View All Products"
+  },
+  "crop_prediction": {
+    "title": "Crop Prediction",
+    "subtitle": "Enter your soil and location data to get personalized crop recommendations",
+    "enter_soil_params": "Enter Your Soil Parameters",
+    "nitrogen": "Nitrogen (N)",
+    "phosphorus": "Phosphorus (P)",
+    "potassium": "Potassium (K)",
+    "ph": "Soil pH Level",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "ph_hint": "this value must be from 3 to 9",
+    "lat_hint": "this value must be from -90 to 90",
+    "long_hint": "this value must be from -180 to 180",
+    "n_hint": "this value must be from 0 to 200",
+    "p_hint": "this value must be from 0 to 150",
+    "k_hint": "this value must be from 0 to 200",
+    "location_info": "Location Information",
+    "get_suggestion": "Get Crop Suggestion",
+    "processing": "Processing...",
+    "submit": "submit",
+    "recommendation_title": "Crop Recommendation",
+    "recommendation_subtitle": "Based on your soil parameters and location",
+    "recommended_crop": "Recommended Crop",
+    "about_crop": "About This Crop",
+    "no_prediction_title": "No Crop Prediction Available",
+    "no_prediction_text": "Please provide the necessary soil and location inputs to get a crop recommendation.",
+    "go_to_prediction": "Go to Crop Prediction"
+  },
+  "yield_input": {
+    "title": "Yield Prediction",
+    "description": "Enter your land size and farming details to estimate total crop yield",
+    "error": "An error occurred. Please try again.",
+    "form": {
+      "heading_farming": "Enter Farming Parameters",
+      "pesticides_label": "Pesticides Used (tonnes)",
+      "pesticides_help": "Enter total pesticides used in tonnes",
+      "crop_label": "Select Crop",
+      "crop_help": "Choose the crop you're growing",
+      "crops": {
+        "maize": "Maize",
+        "potatoes": "Potatoes",
+        "rice": "Rice, paddy",
+        "sorghum": "Sorghum",
+        "soybeans": "Soybeans",
+        "sweet_potatoes": "Sweet potatoes",
+        "wheat": "Wheat",
+        "cassava": "Cassava"
+      },
+      "heading_land": "Land Details",
+      "land_size_label": "Land Size",
+      "land_size_help": "Enter your land area (minimum 0.1)",
+      "land_unit_label": "Select Unit",
+      "land_unit_help": "Select hectares or acres",
+      "units": {
+        "hectares": "Hectares",
+        "acres": "Acres"
+      },
+      "heading_location": "Location Information",
+      "latitude_label": "Latitude",
+      "latitude_help": "Value must be between -90 and 90",
+      "longitude_label": "Longitude",
+      "longitude_help": "Value must be between -180 and 180",
+      "submit": "Predict Yield",
+      "loading": "Processing..."
+    }
+  },
+  "yield_output": {
+    "title": "Yield Prediction Results",
+    "description": "Based on your input, here is the estimated total crop yield",
+    "results": {
+      "yield": "Total Yield (tons)",
+      "bags": "Bags (50kg each)",
+      "fed": "People Fed"
+    },
+    "predict_again": "Predict Again",
+    "no_data": "No data received!"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Have questions or suggestions? We're here to help. Reach out to us and we'll respond as soon as possible.",
+    "info": {
+      "location": {
+        "title": "Our Location",
+        "text": "123 Innovation Drive, Tech Valley, CA 94103"
+      },
+      "email": {
+        "title": "Email Us",
+        "text": "support@agroguide.com"
+      },
+      "phone": {
+        "title": "Call Us",
+        "text": "+1 (555) 123-4567"
+      },
+      "hours": {
+        "title": "Working Hours",
+        "text": "Monday - Friday: 9AM to 5PM"
+      }
+    },
+    "form": {
+      "title": "Send us a message",
+      "name": {
+        "label": "Your Name",
+        "placeholder": "Your Name"
+      },
+      "email": {
+        "label": "Your Email",
+        "placeholder": "Your Email"
+      },
+      "subject": {
+        "label": "Subject",
+        "placeholder": "Subject"
+      },
+      "message": {
+        "label": "Your Message",
+        "placeholder": "Your Message"
+      },
+      "submit": "Send Message"
+    }
   }
 }
