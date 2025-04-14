@@ -1,50 +1,46 @@
 from PIL import Image
-from flask import jsonify
-from torchvision.transforms import Compose, Resize, ToTensor, Normalize
-from torchvision.models import resnet50
-from torch import load, device, no_grad, argmax
-from torch.nn import Linear
+from numpy import array, expand_dims, float32, argmax
+from tensorflow.lite.python.interpreter import Interpreter
 from functools import lru_cache
 
-@lru_cache()
-def get_transform():
-    return Compose([
-        Resize((224, 224)),
-        ToTensor(),
-        Normalize(
-            mean=[0.485, 0.456, 0.406],
-            std=[0.229, 0.224, 0.225]
-        ),
-    ])
 
 @lru_cache()
-def get_model():
-    model = resnet50(pretrained=False)
-    num_ftrs = model.fc.in_features
-    model.fc = Linear(num_ftrs, 39)
-
-    checkpoint = load(
-        "./trained_models/disease_detection/model_trained.pth",
-        map_location=device("cpu")
+def get_interpreter():
+    interpreter = Interpreter(
+        model_path="./trained_models/disease_detection/inceptionv3_96.tflite"
     )
+    interpreter.allocate_tensors()
+    return interpreter
 
-    if "state_dict" in checkpoint:
-        model.load_state_dict(checkpoint["state_dict"], strict=False)
-    else:
-        model.load_state_dict(checkpoint, strict=False)
 
-    model.eval()
-    return model
+def preprocess_image(image_path):
+    img = Image.open(image_path).convert("RGB")
+    img = img.resize((224, 224))  # Resize to match model input
+    img_array = array(img) / 255.0  # Normalize to [0, 1]
+    img_array = (img_array - [0.485, 0.456, 0.406]) / [
+        0.229,
+        0.224,
+        0.225,
+    ]  # Normalize like ImageNet
+    img_array = expand_dims(img_array.astype(float32), axis=0)  # Add batch dimension
+    return img_array
+
 
 def predict(image_path):
     try:
-        img = Image.open(image_path)
-        img = get_transform()(img)
+        interpreter = get_interpreter()
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
 
-        with no_grad():
-            output = get_model()(img.unsqueeze(0))
-            predicted_class = argmax(output)
-        return predicted_class.item()
+        img_array = preprocess_image(image_path)
+
+        interpreter.set_tensor(input_details[0]["index"], img_array)
+        interpreter.invoke()
+
+        output_data = interpreter.get_tensor(output_details[0]["index"])
+        predicted_class = argmax(output_data[0])
+
+        return int(predicted_class)
 
     except Exception as e:
         return {"error": str(e)}

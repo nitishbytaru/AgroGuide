@@ -36,8 +36,12 @@ scipy==1.15.2
 six==1.17.0
 sympy==1.13.1
 threadpoolctl==3.6.0
-torch==2.6.0
-torchvision==0.21.0
+
+tensorboard==2.19.0
+tensorboard-data-server==0.7.2
+tensorflow==2.19.0
+tensorflow-io-gcs-filesystem==0.31.0
+
 typing_extensions==4.13.0
 tzdata==2025.2
 url-normalize==2.2.0

@@ -30,6 +30,8 @@ def submit():
         disease_info = get_disease_info()
         supplement_info = get_supplement_info()
 
+        print(pred)
+
         response_data = {
             "title": disease_info["disease_name"][pred],
             "desc": disease_info["description"][pred],
