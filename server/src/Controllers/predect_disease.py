@@ -12,17 +12,11 @@ def get_interpreter():
     interpreter.allocate_tensors()
     return interpreter
 
-
 def preprocess_image(image_path):
-    img = Image.open(image_path).convert("RGB")
-    img = img.resize((224, 224))  # Resize to match model input
-    img_array = array(img) / 255.0  # Normalize to [0, 1]
-    img_array = (img_array - [0.485, 0.456, 0.406]) / [
-        0.229,
-        0.224,
-        0.225,
-    ]  # Normalize like ImageNet
-    img_array = expand_dims(img_array.astype(float32), axis=0)  # Add batch dimension
+    img = Image.open(image_path)
+    img = img.resize((224, 224))
+    img_array = array(img, dtype=float32) / 255.0
+    img_array = expand_dims(img_array, axis=0)
     return img_array
 
 
@@ -33,7 +27,6 @@ def predict(image_path):
         output_details = interpreter.get_output_details()
 
         img_array = preprocess_image(image_path)
-
         interpreter.set_tensor(input_details[0]["index"], img_array)
         interpreter.invoke()
 
@@ -43,4 +36,5 @@ def predict(image_path):
         return int(predicted_class)
 
     except Exception as e:
+        print("Prediction failed:", str(e))
         return {"error": str(e)}
