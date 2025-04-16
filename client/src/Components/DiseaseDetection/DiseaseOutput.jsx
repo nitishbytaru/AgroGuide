@@ -7,19 +7,6 @@ function DiseaseOutput() {
   const { title, pred, image_url, desc, prevent, simage, sname, buy_link } =
     location.state;
 
-  console.log("--------------------------");
-
-  console.log(title);
-  console.log(pred);
-  console.log(image_url);
-  console.log(desc);
-  console.log(prevent);
-  console.log(simage);
-  console.log(sname);
-  console.log(buy_link);
-  
-  console.log("--------------------------");
-
   const isHealthy = [3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38].includes(
     pred
   );
