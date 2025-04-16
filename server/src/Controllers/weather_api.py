@@ -41,26 +41,14 @@ def get_average_annual_rainfall(lat, lon):
 
 def get_weather(latitude, longitude):
     average_rainfall = get_average_annual_rainfall(latitude, longitude)
-    # if average_rainfall is not None:
-    #     print(f"Avg annual rainfall: {average_rainfall:.2f} mm")
-    # else:
-    #     print("Could not fetch rainfall data.")
 
     url = f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={environ.get('weather_api_key')}&units=metric"
 
     response = requests.get(url)
     data = response.json()
 
-    print("---------------------------------------------")
-    print(data)
-    print("---------------------------------------------")
-
     temperature = data["main"]["temp"]
     humidity = data["main"]["humidity"]
-
-    print(temperature)
-    print(humidity)
-    print(average_rainfall)
 
     return {
         "temperature": temperature,

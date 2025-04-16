@@ -1,5 +1,4 @@
 import {
-  CallToAction,
   FAQ,
   Features,
   Hero,
@@ -25,8 +24,6 @@ function Home() {
       {/* <!-- FAQ Section --> */}
       <FAQ />
 
-      {/* <!-- Call to Action --> */}
-      <CallToAction />
     </div>
   );
 }

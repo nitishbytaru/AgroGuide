@@ -66,31 +66,6 @@ function DiseaseInput() {
 
       <div className="row">
         <div className="col-md-6 mb-4">
-          <div className="card-dark animate-fade-in-left">
-            <div className="card-body">
-              <h4
-                style={{ color: "var(--primary-color)", marginBottom: "20px" }}
-              >
-                {t("disease.why_detect_title")}
-              </h4>
-              <ul
-                style={{
-                  color: "var(--secondary-color)",
-                  marginBottom: "20px",
-                }}
-              >
-                {t("disease.why_detect_points", { returnObjects: true }).map(
-                  (point, index) => (
-                    <li key={index}>{point}</li>
-                  )
-                )}
-              </ul>
-              <p>{t("disease.why_detect_desc")}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-6 mb-4">
           <div className="card-dark animate-fade-in-right animate-glow">
             <div className="card-body">
               <h4
@@ -170,6 +145,31 @@ function DiseaseInput() {
                   {t("disease.supported_formats")}
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-6 mb-4">
+          <div className="card-dark animate-fade-in-left">
+            <div className="card-body">
+              <h4
+                style={{ color: "var(--primary-color)", marginBottom: "20px" }}
+              >
+                {t("disease.why_detect_title")}
+              </h4>
+              <ul
+                style={{
+                  color: "var(--secondary-color)",
+                  marginBottom: "20px",
+                }}
+              >
+                {t("disease.why_detect_points", { returnObjects: true }).map(
+                  (point, index) => (
+                    <li key={index}>{point}</li>
+                  )
+                )}
+              </ul>
+              <p>{t("disease.why_detect_desc")}</p>
             </div>
           </div>
         </div>

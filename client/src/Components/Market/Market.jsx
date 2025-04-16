@@ -77,10 +77,10 @@ function Market() {
         </div>
       </div>
 
-      <div className="row mb-4 align-items-center">
-        <div className="col-md-8">
+      <div className="row mb-4">
+        <div className="col-12 mb-3">
           <ul
-            className="nav nav-pills"
+            className="nav nav-pills justify-content-center flex-wrap"
             style={{
               backgroundColor: "var(--card-bg)",
               padding: 10,
@@ -88,7 +88,7 @@ function Market() {
             }}
           >
             {["all", "fertilizer", "supplements"].map((filter) => (
-              <li className="nav-item" key={filter}>
+              <li className="nav-item m-1" key={filter}>
                 <button
                   className={`nav-link filter-btn ${
                     activeFilter === filter ? "active" : ""
@@ -106,7 +106,8 @@ function Market() {
             ))}
           </ul>
         </div>
-        <div className="col-md-4 mb-4">
+
+        <div className="col-12">
           <div className="input-group">
             <span
               className="input-group-text"
@@ -146,7 +147,7 @@ function Market() {
           filteredProducts.map((product, index) => (
             <div
               key={index}
-              className="col-lg-4 col-md-6 mb-4 product-item"
+              className="col-lg-4 col-md-6 col-sm-12 mb-4 product-item"
               data-category={product.category}
             >
               <div className="product-card text-center">
